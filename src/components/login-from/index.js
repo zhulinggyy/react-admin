@@ -26,21 +26,21 @@ class LoginForm extends Component {
        }
    }
 
-    // handleSubmit = e =>{
-    //     e.preventDefault();
-    //     const{validateFields,resetFields}=this.props.form.
-    //     validateFields((err, values) => {
-    //         if (!err) {
-    //             console.log('收集的表单数据 ', values);
-    //         }else{
-    //             resetFields(['password']);
-    //            const errMsg = object.values(error).reduce((prev,curr)=>{
-    //                 return prev+curr.errors[0].message;
-    //             },'');
-    //             message.error('errMsg')
-    //         }
-    //     });
-    // }
+    handleSubmit = e =>{
+        e.preventDefault();
+        const{validateFields,resetFields}=this.props.form
+        validateFields((err, values) => {
+            if (!err) {
+                console.log('收集的表单数据 ', values);
+            }else{
+                resetFields(['password']);
+               const errMsg = Object.values(err).reduce((prev,curr)=>{
+                    return prev+curr.errors[0].message;
+                },'');
+                message.error(errMsg)
+            }
+        });
+    }
   render () {
       const { getFieldDecorator,getFieldValue} = this.props.form;
       console.log(getFieldValue('username'));
