@@ -4,6 +4,7 @@ import'./index.less'
 
 import LoginForm from'../../components/login-from';
 import {reqLogin} from "../../api";
+import {setItem} from "../../utils/storageUtils";
 
 export default class  extends Component {
 
@@ -14,7 +15,9 @@ export default class  extends Component {
         console.log(result);
         if(result.status===0){
             // 用户登录成功后
+            setItem(result.date);
             this.props.history.replace('/');
+
         }else{
             //用户登录失败后
         }
