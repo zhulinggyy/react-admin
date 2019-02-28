@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {
     Form,
     Icon,
@@ -10,7 +11,11 @@ import {
 const Item=Form.Item;
 
 class LoginForm extends Component {
+    static  propTypes={
+        login:PropTypes.func.isRequired
+    }
 
+   //自动校验
    checkPassword=(rule,value,callback)=>{
        console.log(rule,value);
        if(!value){
@@ -28,10 +33,13 @@ class LoginForm extends Component {
 
     handleSubmit = e =>{
         e.preventDefault();
-        const{validateFields,resetFields}=this.props.form
-        validateFields((err, values) => {
+        const{validateFields,resetFields}=this.props.form;
+        validateFields(async(err, values) => {
             if (!err) {
                 console.log('收集的表单数据 ', values);
+                const {username,password}=values;
+                this.props.login(username,password);
+
             }else{
                 resetFields(['password']);
                const errMsg = Object.values(err).reduce((prev,curr)=>{
